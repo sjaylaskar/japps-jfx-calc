@@ -5,14 +5,11 @@
  */
 package com.japps.lib.math.util.ops.basic;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.util.stream.LongStream;
+import java.math.*;
 
-import com.japps.lib.math.error.MathException;
-import com.japps.lib.math.util.BigDecimalUtil;
-import com.japps.log.util.LogUtil;
-import com.japps.log.util.Loggable;
+import com.japps.lib.math.error.*;
+import com.japps.lib.math.util.*;
+import com.japps.log.util.*;
 
 /**
  * The standard operations.
@@ -209,30 +206,18 @@ public final class StandardOperations implements Loggable {
 			x.longValueExact();
 		} catch (final ArithmeticException exception) {
 			LogUtil.newInstance(StandardOperations.class).error(exception.getMessage());
-			throw new MathException("Only whole numbers are allowed for factorial.");
+			throw new MathException("Only whole numbers for factorial.");
 		}
-		return BigDecimal.valueOf(factorial(x.longValue()));
-	}
 
-	/**
-	 * Factorial.
-	 *
-	 * @param x the x
-	 * @return the long
-	 */
-	public static long factorial(final long x) {
-		if (x == 0) {
-			return 1;
+		BigInteger factorial = BigInteger.ONE;
+		for (long val = 2; val <= x.abs().longValue(); val++) {
+			factorial = factorial.multiply(BigInteger.valueOf(val));
 		}
-		boolean isNegative = false;
-		final long negatedX = -x;
-		if (x < 0) {
-			isNegative = true;
 
-		}
-		return  (!isNegative)
-				? LongStream.rangeClosed(1, x).reduce(1, (a, b) -> a * b)
-						: - LongStream.rangeClosed(1, negatedX).reduce(1, (a, b) -> a * b);
+		LogUtil.newInstance(StandardOperations.class).info(x + "! = " + factorial);
+		return (x.compareTo(BigDecimal.ZERO) < 0)
+			? new BigDecimal(factorial.multiply(BigInteger.valueOf(-1)))
+			: new BigDecimal(factorial);
 	}
 
 	/**
