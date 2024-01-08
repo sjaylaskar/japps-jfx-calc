@@ -5,9 +5,7 @@
  */
 package com.japps.jfx.calc.app;
 
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.japps.log.util.Loggable;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,18 +14,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * The app.
+ * The calculator app.
  *
  * @author Subhajoy Laskar
  */
-public class CalculatorApp extends Application {
-
-	/**
-	 *  The Constant LOG.
-	 *
-	 */
-	private static final Logger LOG = LogManager.getLogger(CalculatorApp.class);
-
+public class CalculatorApp extends Application implements Loggable {
 
 	/**
 	 * Start.
@@ -37,6 +28,7 @@ public class CalculatorApp extends Application {
 	@Override
 	public void start(final Stage primaryStage) {
 		try {
+			info("Opening JAPPS - Calculator.");
 			final Parent root = FXMLLoader.load(getClass().getResource("calculator-app.fxml"));
 			final Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("controlStyle2.css").toExternalForm());
@@ -44,7 +36,7 @@ public class CalculatorApp extends Application {
 			primaryStage.setTitle("JApps - Calculator");
 			primaryStage.show();
 		} catch(final Exception exception) {
-			LOG.error(exception);
+			error(exception);
 		}
 	}
 

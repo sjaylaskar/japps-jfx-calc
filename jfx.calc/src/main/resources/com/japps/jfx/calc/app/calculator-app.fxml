@@ -10,20 +10,16 @@
 	xmlns:fx="http://javafx.com/fxml"
 	fx:controller="com.japps.jfx.calc.controller.CalcAppController">
 	<children>
-		<AnchorPane prefHeight="56.0" prefWidth="400.0">
-			<children>
-				<Label fx:id="displayResult" alignment="CENTER_RIGHT"
-					prefHeight="66.0" prefWidth="419.0"
-					style="-fx-background-color: white; -fx-border-color: black;">
-					<font>
-						<Font size="37.0" />
-					</font>
-					<opaqueInsets>
-						<Insets />
-					</opaqueInsets>
-				</Label>
-			</children>
-		</AnchorPane>
+		<Label fx:id="displayResult" alignment="CENTER_RIGHT"
+			prefHeight="66.0" prefWidth="419.0"
+			style="-fx-background-color: white; -fx-border-color: black;">
+			<font>
+				<Font size="25.0" />
+			</font>
+			<opaqueInsets>
+				<Insets />
+			</opaqueInsets>
+		</Label>
 		<AnchorPane layoutX="-4.0" layoutY="66.0"
 			prefHeight="392.0" prefWidth="423.0"
 			style="-fx-background-color: silver;">

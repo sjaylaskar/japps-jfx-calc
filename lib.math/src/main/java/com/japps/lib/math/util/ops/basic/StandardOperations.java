@@ -11,13 +11,18 @@ import java.util.stream.LongStream;
 
 import com.japps.lib.math.error.MathException;
 import com.japps.lib.math.util.BigDecimalUtil;
+import com.japps.log.util.LogUtil;
+import com.japps.log.util.Loggable;
 
 /**
  * The standard operations.
  *
  * @author subhajoyl
  */
-public final class StandardOperations {
+public final class StandardOperations implements Loggable {
+
+	/** The Constant MATH_CONTEXT_DECIMAL128. */
+	private static final MathContext MATH_CONTEXT_DECIMAL128 = MathContext.DECIMAL128;
 
 	/**
 	 * Instantiates a new standard operations.
@@ -35,7 +40,7 @@ public final class StandardOperations {
 	 * @return the big decimal
 	 */
 	public static BigDecimal add(final BigDecimal x, final BigDecimal y) {
-		return x.add(y);
+		return x.add(y, MATH_CONTEXT_DECIMAL128);
 	}
 
 
@@ -47,7 +52,7 @@ public final class StandardOperations {
 	 * @return the big decimal
 	 */
 	public static BigDecimal subtract(final BigDecimal x, final BigDecimal y) {
-		return x.subtract(y);
+		return x.subtract(y, MATH_CONTEXT_DECIMAL128);
 	}
 
 
@@ -59,7 +64,7 @@ public final class StandardOperations {
 	 * @return the big decimal
 	 */
 	public static BigDecimal multiply(final BigDecimal x, final BigDecimal y) {
-		return x.multiply(y);
+		return x.multiply(y, MATH_CONTEXT_DECIMAL128);
 	}
 
 
@@ -72,7 +77,7 @@ public final class StandardOperations {
 	 */
 	public static BigDecimal divide(final BigDecimal x, final BigDecimal y) {
 		validateDivisionByZero(y);
-		return x.divide(y);
+		return x.divide(y, MATH_CONTEXT_DECIMAL128);
 	}
 
 
@@ -85,7 +90,7 @@ public final class StandardOperations {
 	 */
 	public static BigDecimal mod(final BigDecimal x, final BigDecimal y) {
 		validateDivisionByZero(y);
-		return x.remainder(y);
+		return x.remainder(y, MATH_CONTEXT_DECIMAL128);
 	}
 
 
@@ -108,7 +113,7 @@ public final class StandardOperations {
 	 */
 	public static BigDecimal sqrt(final BigDecimal x) {
 		validatePositive(x);
-		return x.sqrt(MathContext.UNLIMITED);
+		return x.sqrt(MATH_CONTEXT_DECIMAL128);
 	}
 
 	/**
@@ -203,6 +208,7 @@ public final class StandardOperations {
 		try {
 			x.longValueExact();
 		} catch (final ArithmeticException exception) {
+			LogUtil.newInstance(StandardOperations.class).error(exception.getMessage());
 			throw new MathException("Only whole numbers are allowed for factorial.");
 		}
 		return BigDecimal.valueOf(factorial(x.longValue()));
@@ -236,6 +242,7 @@ public final class StandardOperations {
 	 */
 	private static void validateDivisionByZero(final BigDecimal y) {
 		if (BigDecimal.ZERO.equals(y)) {
+			LogUtil.newInstance(StandardOperations.class).error("Division by zero not allowed.");
 			throw new MathException("Division by zero not allowed.");
 		}
 	}
@@ -247,6 +254,7 @@ public final class StandardOperations {
 	 */
 	private static void validatePositive(final BigDecimal x) {
 		if (x.compareTo(BigDecimal.ZERO) < 1) {
+			LogUtil.newInstance(StandardOperations.class).error("Number must be positive.");
 			throw new MathException("Number must be positive.");
 		}
 	}

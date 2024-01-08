@@ -8,11 +8,10 @@ package com.japps.jfx.calc.controller;
 import java.math.BigDecimal;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import com.japps.jfx.calc.logic.CalculationTransformer;
 import com.japps.lib.math.error.MathException;
+import com.japps.log.util.Loggable;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,13 +23,10 @@ import javafx.scene.control.Label;
  *
  * @author subhajoyl
  */
-public class CalcAppController {
+public class CalcAppController implements Loggable {
 
 	/** The Constant MSG_CALCULATION_FAILURE. */
 	private static final String MSG_CALCULATION_FAILURE = "Calculation failure!";
-
-	/** The Constant LOG. */
-	private static final Logger LOG = LogManager.getLogger(CalcAppController.class);
 
 	/** The display result. */
 	@FXML
@@ -52,7 +48,7 @@ public class CalcAppController {
 	 */
 	@FXML
 	public void process(final ActionEvent event) {
-		LOG.info("Process...");
+		info("Process...");
 		if (start) {
 			displayResult.setText(StringUtils.EMPTY);
 			start = false;
@@ -68,7 +64,7 @@ public class CalcAppController {
 	 */
 	@FXML
 	public void processOneOperand(final ActionEvent event) {
-		LOG.info("Process one operand...");
+		info("Process one operand...");
 		final String value = ((Button) event.getSource()).getText();
 		if (StringUtils.isNotBlank(operator)) {
 			return;
@@ -80,14 +76,13 @@ public class CalcAppController {
 
 		try {
 			final BigDecimal calculationResult = CalculationTransformer.calculate(number1, operator);
-			LOG.info("Calculation result: " + calculationResult);
+			info("Calculation result: " + calculationResult);
 			displayResult.setText(String.valueOf(format(calculationResult)));
-			throw new Exception("UNPRECEDENTED TODO");
 		} catch (final MathException | UnsupportedOperationException exception) {
-			LOG.error(exception);
+			error(exception);
 			displayResult.setText(exception.getMessage());
 		} catch (final Exception exception) {
-			LOG.error(exception);
+			error(exception);
 			displayResult.setText(MSG_CALCULATION_FAILURE);
 		}
 
@@ -101,7 +96,7 @@ public class CalcAppController {
 	 */
 	@FXML
 	public void processTwoOperands(final ActionEvent event) {
-		LOG.info("Process two operands...");
+		info("Process two operands...");
 		final String value = ((Button) event.getSource()).getText();
 		if (!StringUtils.equals(value, "=")) {
 			if (StringUtils.isNotBlank(operator)) {
@@ -119,13 +114,13 @@ public class CalcAppController {
 			final BigDecimal number2 = new BigDecimal(displayResult.getText());
 			try {
 				final BigDecimal calculationResult = CalculationTransformer.calculate(number1, number2, operator);
-				LOG.info("Calculation result: " + calculationResult);
+				info("Calculation result: " + calculationResult);
 				displayResult.setText(format(calculationResult));
 			} catch (final MathException | UnsupportedOperationException exception) {
-				LOG.error(exception);
+				error(exception);
 				displayResult.setText(exception.getMessage());
 			} catch (final Exception exception) {
-				LOG.error(exception);
+				error(exception);
 				displayResult.setText(MSG_CALCULATION_FAILURE);
 			}
 			operator = StringUtils.EMPTY;
@@ -139,7 +134,7 @@ public class CalcAppController {
 	 */
 	@FXML
 	public void clear(final ActionEvent event) {
-		LOG.info("Clear...");
+		info("Clear...");
 		operator = StringUtils.EMPTY;
 		start = true;
 		displayResult.setText(StringUtils.EMPTY);

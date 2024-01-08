@@ -19,8 +19,8 @@
 		<jdk.version>19</jdk.version>
 		<commons-lang3.version>3.12.0</commons-lang3.version>
 		<commons-collections4.version>4.4</commons-collections4.version>
-		<lib-math-version>0.0.1</lib-math-version>
-		<log4j-core-version>2.22.1</log4j-core-version>
+		<lib-math.version>0.0.1</lib-math.version>
+		<japps-log-util.version>0.0.1</japps-log-util.version>
 	</properties>
 
 	<dependencies>
@@ -47,26 +47,16 @@
 		<dependency>
 			<groupId>com.japps</groupId>
 			<artifactId>lib.math</artifactId>
-			<version>${lib-math-version}</version>
+			<version>${lib-math.version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>${log4j-core-version}</version>
+			<groupId>com.japps</groupId>
+			<artifactId>log-util</artifactId>
+			<version>${japps-log-util.version}</version>
 		</dependency>
-
 	</dependencies>
 	<build>
 		<plugins>
-			<!--<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.plugin.version}</version>
-                <configuration>
-                    <release>${maven.compiler.release.version}</release>
-                </configuration>
-            </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -86,7 +76,7 @@
 						<!-- Usage: mvn clean javafx:run -->
 						<id>default-cli</id>
 						<configuration>
-							<mainClass>com.japps.jfx.calc.App</mainClass>
+							<mainClass>com.japps.jfx.calc.app.CalculatorApp</mainClass>
 						</configuration>
 					</execution>
 					<execution>
@@ -97,7 +87,7 @@
 							<options>
 								<option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=localhost:8000</option>
 							</options>
-							<mainClass>com.japps.jfx.calc.App</mainClass>
+							<mainClass>com.japps.jfx.calc.app.CalculatorApp</mainClass>
 						</configuration>
 					</execution>
 					<execution>
@@ -107,7 +97,7 @@
 							<options>
 								<option>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</option>
 							</options>
-							<mainClass>com.japps.jfx.calc.App</mainClass>
+							<mainClass>com.japps.jfx.calc.app.CalculatorApp</mainClass>
 						</configuration>
 					</execution>
 				</executions>

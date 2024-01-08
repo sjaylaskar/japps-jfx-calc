@@ -20,6 +20,7 @@
 		<commons-collections4.version>4.4</commons-collections4.version>
 		<commons-math3.version>3.6.1</commons-math3.version>
 		<jdk.version>19</jdk.version>
+		<japps-log-util.version>0.0.1</japps-log-util.version>
 	</properties>
 
 	<dependencies>
@@ -43,6 +44,11 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-math3</artifactId>
 			<version>${commons-math3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.japps</groupId>
+			<artifactId>log-util</artifactId>
+			<version>${japps-log-util.version}</version>
 		</dependency>
 	</dependencies>
 
