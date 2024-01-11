@@ -5,13 +5,12 @@
  */
 package com.japps.jfx.calc.app;
 
-import com.japps.log.util.Loggable;
+import com.japps.log.util.*;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.application.*;
+import javafx.fxml.*;
+import javafx.scene.*;
+import javafx.stage.*;
 
 /**
  * The calculator app.
@@ -34,6 +33,8 @@ public class CalculatorApp extends Application implements Loggable {
 			scene.getStylesheets().add(getClass().getResource("controlStyle2.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("JApps - Calculator");
+			primaryStage.setResizable(false);
+			primaryStage.setIconified(true);
 			primaryStage.show();
 		} catch(final Exception exception) {
 			error(exception);

@@ -13,6 +13,7 @@
 	fx:controller="com.japps.jfx.calc.controller.CalcAppController">
 	<children>
 		<Label fx:id="displayResult" alignment="BOTTOM_RIGHT"
+		    maxHeight="-Infinity" maxWidth="-Infinity"
 			prefHeight="66.0" prefWidth="419.0"
 			style="-fx-background-color: white; -fx-border-color: black;">
 			<font>
@@ -23,6 +24,7 @@
 			</opaqueInsets>
 		</Label>
 		<AnchorPane layoutX="-4.0" layoutY="66.0"
+		    maxHeight="-Infinity" maxWidth="-Infinity"
 			prefHeight="392.0" prefWidth="423.0"
 			style="-fx-background-color: silver;">
 			<children>
